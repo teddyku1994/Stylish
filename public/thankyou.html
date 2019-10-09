@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>感謝購買</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/flex.css">
+    <link rel="stylesheet" href="./css/media.css">
+    <script src="./script/top_script.js"></script>
+</head>
+<body id="thankyou-body">
+    <header class="main-header">
+        <div class="header-subcontainer">
+            <div class="logo">
+                <img src="./img/logo.png" alt="STYLiSH logo">
+            </div>
+                <ul class="main-nav">
+                    <li class="women"><a href="/?tag=women">女裝</a></li>
+                    <li class="men"><a href="/?tag=men">男裝</a></li>
+                    <li class="accessories"><a href="/?tag=accessories">配件</a></li>
+                </ul>
+        </div> 
+        <div class="features">
+            <div class="search-container">
+                <form action="./" id="search">
+                <input type="text" id="search_item" class="search" name="name" placeholder="Search Items...">
+                <img src="./img/search.png" alt="search icon" onclick="search()">
+                </form>   
+            </div>
+            <a href="#" class="shopping-cart">
+                <img src="./img/cart.png" alt="Cart Icon">
+            </a>
+            <a href="/signin.html"class="member-icon">
+                <img src="./img/member.png" alt="Member Icon">
+            </a>
+            <a href="/index.html" id="logout" onclick="delete_storage()">
+                <img src="./img/logout.png" alt="log-out icon">
+            </a>
+        </div>
+    </header>
+    <div class="blank">
+    </div>
+
+    <main id="thankyou-container">
+        <div id="thankyou-div">
+            <h2>感謝您的購買，我們會盡快將商品送達</h2>
+            <h3>請記住以下訂單編號，以便查詢</h3>
+            <span id="orderNum"></span>
+            <div id="order_btn">
+                <a href="/index.html">繼續購物</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <ul class="footer-nav">
+                <li class = "about" ><a href="#">關於 Stylish</a></li>
+                <li class = "terms" ><a href="#">服務條款</a></li>
+                <li class = "privacy" ><a href="#">隱私政策</a></li>
+                <li class = "contact" ><a href="#">聯絡我們</a></li>
+                <li class = "FAQ" ><a href="#">FAQ</a></li>
+            </ul>
+            <div class="social">
+                <a href="#" class="icon">
+                    <img src="./img/line.png" alt="line icon">
+                </a>
+                <a href="#" class="icon">
+                    <img src="./img/twitter.png" alt="twitter icon">
+                </a>
+                <a href="#" class="icon">
+                    <img src="./img/facebook.png" alt="facebook icon"> 
+                </a>
+            </div>
+            <div class="copyright">
+                    &copy;2019. All rights reserved
+            </div>
+        </div>
+    </footer>
+    <script src="./script/btm_script.js"></script>
+    <script>
+        logout_func();
+
+        let orderNum = localStorage.getItem('orderNum');
+        let order_id = document.getElementById("orderNum");
+        order_id.innerHTML = orderNum;
+        localStorage.removeItem('orderNum');
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stylish 產品質詢</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/flex.css">
+    <link rel="stylesheet" href="./css/media.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.1.0"></script>
+    <script>
+        TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
+    </script>
+    <script src="./script/top_script.js"></script>
+    <script>check_token();</script>
+</head>
+<body id="product-body">
+    <header class="main-header">
+        <div class="header-subcontainer">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="./img/logo.png" alt="STYLiSH logo">
+                </a>
+            </div>
+                <ul class="main-nav">
+                    <li class="women"><a href="/?tag=women">女裝</a></li>
+                    <li class="men"><a href="/?tag=men">男裝</a></li>
+                    <li class="accessories"><a href="/?tag=accessories">配件</a></li>
+                </ul>
+        </div> 
+        <div class="features">
+            <div class="search-container">
+                <form action="./" id="search">
+                <input type="text" class="search" name="name" placeholder="Search Items..." id="search_item">
+                <!-- <a href=""> -->
+                <img src="../img/search.png" alt="search icon" onclick="search()">
+                <!-- </a> -->
+                </form>   
+            </div>
+            <a href="#" class="shopping-cart">
+                <img src="../img/cart.png" alt="Cart Icon">
+            </a>
+            <a href="/profile.html" id="member-icon">
+                <img src="./img/member.png" alt="Member Icon">
+            </a>
+            <a href="/index.html" id="logout" onclick="delete_storage()">
+                <img src="./img/logout.png" alt="log-out icon">
+            </a>
+        </div>
+    </header>
+    <div class="blank">
+    </div>
+    
+    <main id="product-main">
+        <div class="main-subcontainer">
+            <div class="product-image">
+            </div>
+            <div class="detail">
+                <div class="product-name" id="product-name"></div>
+                <div class="id" id="id"></div>
+                <div class="product-price" id="product-price"></div>
+                <div class="product-colors">
+                    <span class="title">顏色   |</span>
+                </div>
+                <div class="product-size">
+                    <span class="title">尺寸   |</span>
+                </div>
+                <div class="product-qty">
+                    <span class="title">數量   |</span>
+                    <div class="qty">
+                        <div class="op" data-value="-1">-</div>
+                        <div class="value">1</div>
+                        <div class="op" data-value="+1">+</div>
+                    </div>
+                </div>
+                <form action='/order/checkout' class="checkout" id="checkout" method="POST">
+                    <h4>個人訊息</h4>
+                    <input type="text" id="full_name" name="full_name" placeholder="Full Name">
+                    <br>
+                    <input type="text" id="email" name="email" placeholder="Email address">
+                    <br>
+                    <input type="tel" id="phone" name="phone" placeholder="Mobile Number">
+                    <h4>信用卡訊息</h4>
+                    <div id="tappay"></div>
+                  <div class="ui button" id="submit">Check Out</div><br>
+                </form>
+            </div>
+        </div>
+        <div class="seperator">
+            <div class="more-info">
+                更多產品資訊
+            </div>
+            <div class="line"></div>
+        </div>
+        <div class="description">
+            <div class="story">
+                    O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen jersey, making it even lighter for those who prefer their summer style extra-breezy.
+            </div>
+            <div class="images">
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <ul class="footer-nav">
+                <li class = "about" ><a href="#">關於 Stylish</a></li>
+                <li class = "terms" ><a href="#">服務條款</a></li>
+                <li class = "privacy" ><a href="#">隱私政策</a></li>
+                <li class = "contact" ><a href="#">聯絡我們</a></li>
+                <li class = "FAQ" ><a href="#">FAQ</a></li>
+            </ul>
+            <div class="social">
+                <a href="#" class="icon">
+                    <img src="../img/line.png" alt="line icon">
+                </a>
+                <a href="#" class="icon">
+                    <img src="../img/twitter.png" alt="twitter icon">
+                </a>
+                <a href="#" class="icon">
+                    <img src="../img/facebook.png" alt="facebook icon"> 
+                </a>
+            </div>
+            <div class="copyright">
+                    &copy;2019. All rights reserved
+            </div>
+        </div>
+    </footer>
+    <script src="./script/btm_script.js"></script>
+    <script>
+
+        logout_func();
+
+        let product_url = document.URL;
+        let params = new URL(product_url).searchParams;
+        
+        if(!params.get('id')){
+            
+            window.location = "/index.html";
+
+        } else {
+           
+            let id = params.get('id')
+            let product_api_id = `/api/v1/products/detail?id=${id}`
+
+            ajax(product_api_id, function(res) {
+                product_detail(res);
+            })
+        }
+    </script>
+    <script src="./script/tappay.js"></script>
+</body>
+</html>

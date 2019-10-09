@@ -1,0 +1,84 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Product Information Input
+  body
+  h1 Stylish Product Inputs
+  form#main(action="/upload" method="POST" enctype="multipart/form-data")
+    h2 Basic Info
+    label(for="id") Product id:
+    input(type="number" name="id")
+    br
+    label(for="title") title:
+    input(type="text" name="title")
+    br
+    label(for="description") description:
+    input(type="text" name="description")
+    br
+    label(for="price") price:
+    input(type="number" name="price")
+    br
+    label(for="texture") texture:
+    input(type="text" name="texture")
+    br
+    label(for="wash") wash:
+    input(type="text" name="wash")
+    br
+    label(for="place") place:
+    input(type="text" name="place")
+    br
+    label(for="note") note:
+    input(type="text" name="note")
+    br
+    label(for="story") story:
+    input(type="text" name="story")
+    br
+    label(for="gender") gender:
+    input(type="text" name="gender" placeholder="M/F")
+    br
+    label(for="accessories") Accessories:
+    input(type="text" name="accessories" placeholder='Y/N')
+    br
+    label(for="main_image") main image:
+    input(type="file" name="main_image")
+    br
+    label(for="images") images:
+    input(type="file" name="images" multiple)
+    h2 Variants
+    #var_input
+      input(type="text" name="name" placeholder="color name")
+      input(type="text" name="color_code" placeholder="color code")
+      input(type="text" name="size" placeholder="size")
+      input(type="number" name="stock" placeholder="stock")
+      br
+    input(type="button" value="Add" onclick="add_input()")
+    br
+    input(type="submit" value="Submit")
+  script.
+    function add_input(){
+    let variants = document.getElementById("var_input");
+    let color_name_input = document.createElement("input");
+    color_name_input.type = "text";
+    color_name_input.name =  "name";
+    color_name_input.placeholder = "color name";
+    variants.appendChild(color_name_input)
+    let color_code_input = document.createElement("input");
+    color_code_input.type = "text";
+    color_code_input.name =  "color_code";
+    color_code_input.placeholder = "color code";
+    variants.appendChild(color_code_input)
+    let size_input = document.createElement("input");
+    size_input.type = "text";
+    size_input.name =  "size";
+    size_input.placeholder = "size";
+    variants.appendChild(size_input)
+    let stock_input = document.createElement("input");
+    stock_input.type = "number";
+    stock_input.name =  "stock";
+    stock_input.placeholder = "stock";
+    variants.appendChild(stock_input)
+    variants.appendChild(document.createElement("br"))
+    };

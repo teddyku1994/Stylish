@@ -1,0 +1,9 @@
+@media (max-height:830px) {
+    .main-footer{
+        padding-bottom: 5%;
+    }
+
+    #signin_div{
+        margin: 3% 0;
+    }
+}

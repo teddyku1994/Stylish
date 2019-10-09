@@ -1,0 +1,166 @@
+/* **************
+***index.html ***
+****************/
+.main-header,
+.main-container,
+#index-main,
+.header-subcontainer,
+.category,
+.features,
+.search-container,
+.subcontainer,
+.footer-container,
+.main-footer,
+.product-container {
+    display: flex
+}
+
+.main-header{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 1rem 0.8rem 2rem;
+}
+
+#products {
+    display:flex;
+}
+
+#products{
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.product-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row
+}
+
+.main-footer{
+    justify-content: space-around
+}
+
+.main-container {
+    justify-content: space-evenly;
+}
+
+/* ***************
+***product.html***
+*****************/
+
+#product-main,
+.main-subcontainer,
+.product-qty,
+.seperator,
+#product-body {
+    display:flex;
+}
+
+#product-main,
+#product-body{
+    flex-direction: column;
+}
+
+/* ***************
+***thankyou.html***
+*****************/
+
+#thankyou-body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#thankyou-container {
+    display: flex;
+    justify-content: space-around;
+    align-self: center;
+    flex:1;
+}
+
+#thankyou-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ***************
+*****account*****
+*****************/
+
+#account_body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#signin_container {
+    display: flex;
+    justify-content: space-evenly;    
+    align-items: flex-start;
+    width:100%;
+    max-width: 1200px;
+    height:100%;
+    align-self: center;
+}
+
+#signin_div {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.account_logo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#signin-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+}
+
+/* ***************
+***profile.html***
+*****************/
+
+#profile_body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#profile_main {
+    display: flex;
+    max-width: 1200px;
+    width:100%;
+    height:100%;
+    align-self: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#profile_container {
+    width: 80%;
+    height: 90%;
+    display: flex;
+    justify-content: space;
+    align-items: center;
+}
+
+#profile_pic {
+    display: flex;
+    justify-content: center;
+}
+
+#basic_info{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

@@ -1,0 +1,152 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css')
+    script(src='https://code.jquery.com/jquery-1.10.1.min.js')
+    script(src='https://js.tappaysdk.com/tpdirect/v5.1.0')
+    title Direct Pay - iframe
+    script.
+      TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
+    style.
+      #tappay-iframe {
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+      margin: 0;
+      outline: 0;
+      -webkit-appearance: none;
+      tap-highlight-color: rgba(255,255,255,0);
+      line-height: 1.21428571em;
+      padding: .578571em 1em;
+      font-size: 1em;
+      background: #fff;
+      border: 1px solid rgba(34,36,38,.15);
+      color: rgba(0,0,0,.87);
+      border-radius: .28571429rem;
+      box-shadow: 0 0 0 0 transparent inset;
+      -webkit-transition: color .1s ease,border-color .1s ease;
+      transition: color .1s ease,border-color .1s ease;
+      width: 100%;
+      }
+  body
+    .ui.grid.centered.doubling.stackable
+      .six.wide.column
+        .ui.segment
+          h1.ui.header Payment
+          form.ui.form
+            .field
+              label Credit Card
+              #tappay-iframe
+          br
+          #submit.ui.button Check Out
+          br
+          pre#payment_result
+          br
+          pre#message.ui.error.message(style='overflow-x: auto').
+            \n                            
+          pre#result.ui.info.message(style='overflow-x: auto').
+            \n                            
+          pre#curl.ui.info.message(style='overflow-x: auto').
+            \n             
+          
+    script.
+      var statusTable = {
+      '0': '欄位已填好，並且沒有問題',
+      '1': '欄位還沒有填寫',
+      '2': '欄位有錯誤，此時在 CardView 裡面會用顯示 errorColor',
+      '3': '使用者正在輸入中',
+      }
+      var defaultCardViewStyle = {
+      color: 'rgb(0,0,0)',
+      fontSize: '15px',
+      lineHeight: '24px',
+      fontWeight: '300',
+      errorColor: 'red',
+      placeholderColor: ''
+      }
+      TPDirect.card.setup('#tappay-iframe', defaultCardViewStyle, { isUsedCcv: true })
+      TPDirect.card.onUpdate(function (update) {
+      var submitButton = document.querySelector('#submit')
+      var cardViewContainer = document.querySelector('#tappay-iframe')
+      if (update.canGetPrime) {
+      submitButton.removeAttribute('disabled')
+      } else {
+      submitButton.setAttribute('disabled', true)
+      }
+      var message = document.querySelector('#message')
+      message.innerHTML = `
+      canGetPrime: ${update.canGetPrime} \\n
+      cardNumberStatus: ${statusTable[update.status.number]} \\n
+      cardExpiryStatus: ${statusTable[update.status.expiry]} \\n
+   
+      `.replace(/    /g, '')
+      if (update.hasError) {
+      message.classList.add('error')
+      message.classList.remove('info')
+      } else {
+      message.classList.remove('error')
+      message.classList.add('info')
+      }
+      })
+      document.querySelector('#submit').addEventListener('click', function(event) {
+      TPDirect.card.getPrime(function(result) {
+      document.querySelector('#result').innerHTML  = JSON.stringify(result, null, 4)
+      var command = `
+      "prime": "${result.card.prime}"
+      `.replace(/                /g, '')
+      document.querySelector('#curl').innerHTML = command
+      let purchase = {
+      "prime": `${result.card.prime}`,
+      "order": {
+      "shipping": "delivery",
+      "payment": "credit_card",
+      "subtotal": 1234,
+      "freight": 14,
+      "total": 1300,
+      "recipient": {
+      "name": "Luke",
+      "phone": "0987654321",
+      "email": "luke@gmail.com",
+      "address": "市政府站",
+      "time": "morning"
+      },
+      "list": [
+      {
+      "id": "201807202157",
+      "name": "活力花紋長筒牛仔褲",
+      "price": 1299,
+      "color": {
+      "code": "DDF0FF",
+      "name": "淺藍"
+      },
+      "size": "M",
+      "qty": 1
+      },
+      {
+      "id": "1234567890",
+      "name": "皮卡丘睡衣",
+      "price": 999,
+      "color": {
+      "code": "FFFF99",
+      "name": "黃色"
+      },
+      "size": "L",
+      "qty": 1
+      }
+      ]
+      }
+      }
+      let all_purchase = JSON.stringify(purchase)
+      $.ajax({
+      url: "/order/checkout",
+      type:"POST",
+      data: all_purchase,
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data){
+      document.querySelector('#payment_result').innerHTML = JSON.stringify(data, null, 4);
+      }
+      });
+      })
+      })

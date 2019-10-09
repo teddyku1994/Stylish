@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Campaign Information Input
+  body
+  h1 Stylish Campaign Inputs
+  form#main(action="/upload_campaign" method="POST" enctype="multipart/form-data")
+    h2 Basic Info
+    #input
+        label(for="id") Product id: 
+        input(type="number" name="id")
+        
+        label(for="title") picture: 
+        input(type="file" name="picture")
+
+        label(for="story") story: 
+        textarea(name="story")
+        br
+    input(type="button" value="Add" onclick="add_input()")
+    br
+    input(type="submit" value="Submit")
+  script.
+    function add_input(){
+    let input = document.getElementById("input");
+
+    let id_title = document.createElement("label");
+    id_title.innerHTML = "Product id: "
+    input.appendChild(id_title)
+    let product_id_input = document.createElement("input");
+    product_id_input.type = "number";
+    product_id_input.name =  "id";
+    input.appendChild(product_id_input)
+
+    let picture_title = document.createElement("label");
+    picture_title.innerHTML = "picture: "
+    input.appendChild(picture_title)
+    let picture_input = document.createElement("input");
+    picture_input.type = "file";
+    picture_input.name =  "picture";
+    input.appendChild(picture_input)
+
+    let story_title = document.createElement("label");
+    story_title.innerHTML = "story: "
+    input.appendChild(story_title)
+    let story_input = document.createElement("textarea");
+    story_input.type = "text";
+    story_input.name =  "story";
+    input.appendChild(story_input)
+
+    input.appendChild(document.createElement("br"))
+    };

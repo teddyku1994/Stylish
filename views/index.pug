@@ -1,0 +1,122 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title Stylish
+    link(rel='stylesheet', href='./css/mainpage.css')
+    link(rel='stylesheet', href='./css/flex.css')
+  body
+    header.main-header
+      .header-subcontainer
+        .logo
+          a(href='./index.html')
+            img(src='./img/logo.png', alt='STYLiSH logo')
+        ul.main-nav
+          li.women
+            a(href='#') 女裝
+          li.men
+            a(href='#') 男裝
+          li.accessories
+            a(href='#') 配件
+      .features
+        .search-container
+          form#search(action='./')
+            input.search(type='text', name='tag')
+            a(href='')
+              img(src='../img/search.png', alt='')
+        a.shopping-cart(href='#')
+          img(src='../img/cart.png', alt='Cart Icon')
+        .member-icon
+          img(src='../img/member.png', alt='Member Icon')
+    .blank
+    #campaign
+      .slogan
+        | Travel Light 
+        br
+        |             Travel Free 
+        br
+        |             & Be a Free Spirit
+    .main-container
+      main
+        .product-container
+          // <div class="subcontainer">
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807201824/main.jpg', alt='Product 1')
+              .colors
+                .color.beige
+                .color.white
+                .color.black
+              .name 前開衩扭結洋裝
+              .price TWD.999
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807202140/main.jpg', alt='Product 2')
+              .colors
+                .color.blue
+                .color.white
+                .color.grey
+              .name 透肌熊熊防曬襯衫
+              .price TWD.799
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807202150/main.jpg', alt='Product 3')
+              .colors
+                .color.white
+                .color.grey
+              .name 薄紗貝克襯衫
+              .price TWD.599
+          // </div>
+          // <div class="subcontainer">
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807242216/main.jpg', alt='Product 4')
+              .colors
+                .color.navy
+                .color.grey
+                .color.black
+              .name 羊毛針織西裝外套
+              .price TWD.1299
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807242228/main.jpg', alt='Product 5')
+              .colors
+                .color.beige
+                .color.red
+                .color.white
+              .name 防曬遮陽帽
+              .price TWD.599
+          #products
+            a.product(href='#')
+              img.product-img(src='../img/clothing-photos/201807242234/main.jpg', alt='Product 6')
+              .colors
+                .color.blue
+                .color.red
+                .color.beige
+              .name 針織圍巾
+              .price TWD.599
+          // </div>
+    footer.main-footer
+      .footer-container
+        ul.footer-nav
+          li.about
+            a(href='#') 關於 Stylish
+          li.terms
+            a(href='#') 服務條款
+          li.privacy
+            a(href='#') 隱私政策
+          li.contact
+            a(href='#') 聯絡我們
+          li.FAQ
+            a(href='#') FAQ
+        .social
+          a.line(href='#')
+            img(src='../img/line.png', alt='line icon')
+          a.line(href='#')
+            img(src='../img/twitter.png', alt='twitter icon')
+          a.line(href='#')
+            img(src='../img/facebook.png', alt='facebook icon')
+        .copyright
+          | ©2019. All rights reserved

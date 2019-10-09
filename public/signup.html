@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sign Up</title>
+  <style media="screen">#logout{display:none}</style>
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/flex.css">
+  <link rel="stylesheet" href="./css/media.css">
+</head>
+
+<body id="account_body">
+  <header class="main-header">
+        <div class="account_logo">
+            <a href="./index.html">
+                <img src="./img/logo.png" alt="STYLiSH logo">
+            </a>
+        </div>
+  </header>
+
+  <main id="signin_container">
+    <div id="signin_div">
+      <p class="signin_title">Sign Up</p>
+      <a id="logout" href="#" onclick="logout()">Logout</a>
+      <p class="email_p">Email </p>
+      <input id="account_email" type="email" name="email">
+      <p class="name_p">Name</p>
+      <input id="account_name" type="text" name="name">
+      <p class="password_p">Password </p>
+      <input id="password" type="password" name="password">
+      <div id="signin-btn">
+        <input id="account_submit" type="submit" value="Sign Up" onclick="ajax()" style="width: 100%">
+      </div>
+      <div class="member">
+        <label>Already a member?
+          <a href="/signin.html">Sign In</a>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+      <div class="footer-container">
+          <ul class="footer-nav">
+              <li class = "about" ><a href="#">關於 Stylish</a></li>
+              <li class = "terms" ><a href="#">服務條款</a></li>
+              <li class = "privacy" ><a href="#">隱私政策</a></li>
+              <li class = "contact" ><a href="#">聯絡我們</a></li>
+              <li class = "FAQ" ><a href="#">FAQ</a></li>
+          </ul>
+          <div class="social">
+              <a href="#" class="icon">
+                  <img src="./img/line.png" alt="line icon">
+              </a>
+              <a href="#" class="icon">
+                  <img src="./img/twitter.png" alt="twitter icon">
+              </a>
+              <a href="#" class="icon">
+                  <img src="./img/facebook.png" alt="facebook icon"> 
+              </a>
+          </div>
+          <div class="copyright">
+                  &copy;2019. All rights reserved
+          </div>
+      </div>
+  </footer>
+
+  <script>
+    function ajax() {
+      let email = document.getElementById('account_email').value;
+      let password = document.getElementById('password').value;
+      let name = document.getElementById('account_name').value;
+
+      if (!email){
+        return alert('請輸入Email');
+      } else if(!name) {
+        return alert('請輸入姓名');
+      } else if(!password) {
+        return alert('請輸入密碼');
+      } else {
+        const ajax = (src, callback) => { 
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", src, true);
+        xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+          callback(JSON.parse(xhr.response));
+          }
+        };
+            xhr.send(JSON.stringify({
+            "name": name,
+            "email": email,
+            "password": password
+            }));
+        }
+        
+        const signin = (res) => {
+            if(res.same_email){
+              return alert('Email已使用過');
+            } else if(res.error) {
+              return alert('註冊失敗');
+            } else {
+              localStorage.setItem("token", res.data.access_token);
+              localStorage.setItem("expired", res.data.expired_time);
+              return document.location.assign('/index.html');
+            }
+        }
+        
+        ajax('/user/signup', function(data) {
+            signin(data);
+        })
+        }
+      
+      
+    }
+  </script>
+</body>
+</html>

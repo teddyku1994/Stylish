@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Sign Up
+  body
+  h1 Account
+    h2 Sign Up
+    p Email 
+    input#email(type="email" name="email")
+    p Name 
+    input#name(type="text" name="name")
+    p Password 
+    input#password(type="password" name="password")
+    p Confirm password 
+    input#confirm_password(type="password" name="confirm_password")
+    br
+    input(type="submit" value="Sign Up" onclick="ajax()")
+    br
+    input(type="button" value="Sign In" onclick="location.href='/user/account_signin'")
+
+    script.
+      function ajax() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/user/signup');
+        xhr.setRequestHeader("Content-Type", "application/json")
+        let email = document.getElementById('email').value
+        let name = document.getElementById('name').value
+        let password = document.getElementById('password').value
+        let confirm_password = document.getElementById('confirm_password').value
+        xhr.send(JSON.stringify({ "name":name, "email":email, "password":password, "confirm_password":confirm_password }))
+      }
+      
+      

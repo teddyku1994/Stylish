@@ -1,0 +1,103 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Sign In
+    style(media='screen').
+      #logout{display:none}
+  body
+  script.
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '393256091313777',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v3.3'
+      });
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    };
+    (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
+    function statusChangeCallback(response){
+      if(response.status === 'connected') {
+        console.log('Logged in and authenticated')
+        setElements(true);
+        testAPI();
+      } else {
+        console.log('Not authenticated')
+        setElements(false);
+      }
+    }
+
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    function testAPI() {
+      FB.api('/me?fields=name,email,picture{url}', function(response){
+        if(response && !response.error){
+          console.log(response)
+        }
+      })
+    }
+
+    function setElements(isLoggedIn){
+      if(isLoggedIn){
+        document.getElementById('logout').style.display = 'block'
+        document.getElementById('fb-btn').style.display = 'none'
+      } else {
+        document.getElementById('logout').style.display = 'none'
+        document.getElementById('fb-btn').style.display = 'block'
+      }
+    }
+
+    function logout(){
+      FB.logout(function(response) {
+      setElements(false);
+      });
+    }
+
+  h1 Account 
+    h2 Sign In
+    p Email 
+    input#email(type="email" name="email")
+    p Password 
+    input#password(type="password" name="password")
+    br
+    input(type="submit" value="Sign In" onclick="ajax()")
+    br
+    input(type="button" value="Sign up" onclick="location.href='/user/account_signup'")
+
+  h1 Facebook Sign-in
+  a#logout(href='#' onclick="logout()") Logout
+  fb:login-button#fb-btn(scope='public_profile,email', onlogin='checkLoginState();')
+
+  script.
+      function ajax() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/user/signin');
+        xhr.setRequestHeader("Content-Type", "application/json")
+        let email = document.getElementById('email').value
+        let password = document.getElementById('password').value
+        xhr.send(JSON.stringify({ "provider":"native", "email":email, "password":password }))
+        console.log(xhr)
+        //- if(xhr.response.error){
+        //-   return alert('帳號/密碼錯誤')
+        //- } else {
+        //-   document.location.assign('/user/signin')
+        //- }
+      }
+
+  
