@@ -77,7 +77,6 @@ router.post('/upload', upload, (req, res) => {
   for (let i = 0; i<images.length; i++){
     let elements = { id:id, images:images[i].location, gender:gender.toUpperCase(), accessories:accessories.toUpperCase() }
     connection.query('INSERT INTO images SET?', elements, (err,result) => {
-      console.log('hi')
       if (err) return res.send(errMsg);
     })
   }

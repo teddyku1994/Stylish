@@ -90,7 +90,6 @@ router.get('/api/v1/marketing/campaigns', async(req,res,next) => {
   cache.get( "campaigns_result", ( err, value ) => {
     if(!err){
       if(value === undefined){
-        console.log(value)
         let campaign_arr = []
         for(let i = 0; i<result.length; i++){
           campaign_arr.push({id:result[i].id, picture:result[i].picture, story:result[i].story})

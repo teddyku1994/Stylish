@@ -35,7 +35,6 @@ router.post('/checkout', (req, res) => {
               let query = 'INSERT INTO orders SET ?';
               let order_data = { user_id:user, shipping:shipping, payment:payment, subtotal:subtotal,freight:freight, total:total, recipient_phone:phone, recipient_email:email, recipient_address:address, recipient_time:time, recipient_name:reqcipient_name}
               connection.query(query, order_data, (err, result) => {
-                console.log('inside section 1-1');
                 if(err) return next(err);
                 let order_id = result.insertId;
                 
@@ -47,7 +46,6 @@ router.post('/checkout', (req, res) => {
               connection.query(`SELECT users.id, authentication_tokens.access_expired FROM authentication_tokens JOIN users ON users.id = authentication_tokens.id WHERE access_token = '${token}'`, (err,result) => {
                 if (err) return next(err);
                 if(result[0].access_expired - Date.now() <=0){
-                  console.log ('expired');
                   return res.redirect('/user/acount_signin');
                 } else {
                   let user = result[0].id;

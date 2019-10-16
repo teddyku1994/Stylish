@@ -30,7 +30,6 @@ router.post('/signup', (req,res) => {
         let same_email = JSON.parse('{"same_email" : "same_email"}');
 
         let { name, email, password} = req.body;
-        console.log(email, password);
         let profile_picture = './profile_pic.jpg';
         let provider = "native";
         email.toLowerCase();
@@ -39,7 +38,6 @@ router.post('/signup', (req,res) => {
         connection.query(`SELECT users.email, users.provider FROM users WHERE email = '${email}' and provider = "native"`, (err, result) => {
             if(err) return res.json(same_email);
             if(result.length !== 0){
-                console.log("length != 0");
                 return res.json(same_email);
             } else {
                 password = crypto.createHash('sha256').update(password + 'guessmypassword' + email).digest('hex');
@@ -104,7 +102,6 @@ router.post('/signin', (req,res) => {
                 connection. query(`SELECT * FROM users WHERE email = '${email}' and password = '${password}'`, (err, result) => {
                   
                     if (err) return res.json(err);
-                    console.log(result);
                     if (result.length === 0){
                         return res.json(errMsg);
                     } else {    
